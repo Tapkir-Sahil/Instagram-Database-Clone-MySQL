@@ -24,4 +24,27 @@ VALUES ('Ringo', 'Tabby', 4),
 
 DESC cats;
 
-SELECT * from cats;
+
+
+-- Rapid Excersie Questions update from practice
+-- SELECT * from cats;
+
+-- SELECT name , age from cats;
+
+-- SELECT name,breed from cats;
+
+-- select cat_id from cats;
+
+-- SELECT name,breed from cats;
+
+-- SELECT * from cats WHERE breed='tabby';
+
+-- SELECT name,age from cats WHERE breed='tabby';
+
+-- SELECT cat_id , age from cats WHERE cat_id=age;
+
+-- SELECT * FROM cats WHERE cat_id=age;
+
+
+-- ALias name
+
