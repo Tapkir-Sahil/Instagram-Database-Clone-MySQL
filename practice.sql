@@ -114,25 +114,32 @@
 -- DELETE FROM shirts;
 -- SELECT * FROM shirts;
 -- DESC shirts;
-
 -- DROP TABLE shirts;
 --  SELECT * FROM shirts;
 
 
 -- STRING FUNCTION
-CREATE DATABASE book_shop;
-USE book_shop;
-SELECT DATABASE();
-SHOW TABLES;
-SELECT * FROM books;
-DESC books;
+-- CREATE DATABASE book_shop;
+-- USE book_shop;
+-- SELECT DATABASE();
+-- SHOW TABLES;
+-- SELECT * FROM books;
+-- DESC books;
+-- SELECT DATABASE();
+-- USE book_shop;
+-- SELECT DATABASE();
+-- SELECT * FROM books;
+-- DESC books;
+-- SELECT DATABASE();
+-- USE book_shop;
+-- SELECT DATABASE();
+-- DESC books;
+-- SELECT * FROM books;
 
-SELECT DATABASE();
+-- #CONCAT FUNCTION
 
-USE book_shop;
-SELECT DATABASE();
+-- SELECT CONCAT(author_fname ,author_lname) FROM books;
+-- SELECT CONCAT(author_fname,' ',author_lname) FROM books;
+-- SELECT CONCAT_WS('-',author_fname,author_lname) AS "author full name" FROM books;
 
-SELECT * FROM books;
-
-DESC books;
-
+-- #SUBSTRING
