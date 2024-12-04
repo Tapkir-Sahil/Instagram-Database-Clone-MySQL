@@ -165,3 +165,39 @@ SELECT DATABASE();
 -- SELECT REPLACE(title,' ','-')AS 'title with - ' FROM books;
 
 --REVERSE
+ SELECT REVERSE('abc');
+SELECT CONCAT(
+    author_fname,
+    REVERSE(author_fname)
+)AS 'palindrom' FROM books;
+
+--#CHAR_LENGTH:
+SELECT CHAR_LENGTH('hello');
+SELECT LENGTH('hello');
+SELECT CHAR_LENGTH(author_fname) AS 'length',author_fname FROM books;
+SELECT CONCAT(
+    title,
+    ' IS ',
+    CHAR_LENGTH(title),
+    ' CHARACTER LONG.'
+) AS 'Title Length'
+FROM books;
+
+--UPPER AND LOWER::
+SELECT UCASE('str');
+SELECT LCASE('STR');
+SELECT UPPER(title)FROM books;
+SELECT CONCAT(
+    'I Love This Book ',
+    UPPER(title)
+)AS 'Books' FROM books;
+
+-- Other String Function:
+SELECT INSERT('Hello World',6,0,' There');
+SELECT INSERT(title,1,0,'HELLO ') FROM books;
+SELECT LEFT(title,5) FROM books;
+SELECT RIGHT(title,4) FROM books;
+SELECT REPEAT(title,2) FROM books;
+SELECT TRIM(LEADING '.' FROM '.......gsrgsrg...');
+SELECT TRIM(BOTH '.' FROM '.......gsrgsrg...');
+SELECT TRIM(TRAILING '.' FROM '.......gsrgsrg...');
