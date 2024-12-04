@@ -165,39 +165,79 @@ SELECT DATABASE();
 -- SELECT REPLACE(title,' ','-')AS 'title with - ' FROM books;
 
 --REVERSE
- SELECT REVERSE('abc');
-SELECT CONCAT(
-    author_fname,
-    REVERSE(author_fname)
-)AS 'palindrom' FROM books;
+--  SELECT REVERSE('abc');
+-- SELECT CONCAT(
+--     author_fname,
+--     REVERSE(author_fname)
+-- )AS 'palindrom' FROM books;
 
---#CHAR_LENGTH:
-SELECT CHAR_LENGTH('hello');
-SELECT LENGTH('hello');
-SELECT CHAR_LENGTH(author_fname) AS 'length',author_fname FROM books;
+-- --#CHAR_LENGTH:
+-- SELECT CHAR_LENGTH('hello');
+-- SELECT LENGTH('hello');
+-- SELECT CHAR_LENGTH(author_fname) AS 'length',author_fname FROM books;
+-- SELECT CONCAT(
+--     title,
+--     ' IS ',
+--     CHAR_LENGTH(title),
+--     ' CHARACTER LONG.'
+-- ) AS 'Title Length'
+-- FROM books;
+
+-- --UPPER AND LOWER::
+-- SELECT UCASE('str');
+-- SELECT LCASE('STR');
+-- SELECT UPPER(title)FROM books;
+-- SELECT CONCAT(
+--     'I Love This Book ',
+--     UPPER(title)
+-- )AS 'Books' FROM books;
+
+-- -- Other String Function:
+-- SELECT INSERT('Hello World',6,0,' There');
+-- SELECT INSERT(title,1,0,'HELLO ') FROM books;
+-- SELECT LEFT(title,5) FROM books;
+-- SELECT RIGHT(title,4) FROM books;
+-- SELECT REPEAT(title,2) FROM books;
+-- SELECT TRIM(LEADING '.' FROM '.......gsrgsrg...');
+-- SELECT TRIM(BOTH '.' FROM '.......gsrgsrg...');
+-- SELECT TRIM(TRAILING '.' FROM '.......gsrgsrg...');
+
+-- String Function Excercise:
+
+SELECT REVERSE(
+    UCASE('Why does my cat look at me with such hatred?')
+);
+SELECT REPLACE
+(
+        CONCAT('I', ' ', 'Like', ' ', 'Cats'),
+        ' ',
+        '-'
+);
+
+use book_shop;
+SELECT DATABASE();
+SELECT REPLACE(title,' ','->')AS 'title' FROM books;
+SELECT * FROM books;
+SELECT author_lname AS 'Forwards',REVERSE(author_lname)AS 'Backwards' FROM books;
+SELECT UPPER(
+    CONCAT(author_fname,' ',author_lname)
+)AS 'Full Name In Caps' FROM books;
 SELECT CONCAT(
     title,
-    ' IS ',
-    CHAR_LENGTH(title),
-    ' CHARACTER LONG.'
-) AS 'Title Length'
+    ' Was Released In ',
+    released_year
+)AS Blurb FROM books;
+SELECT title,CHAR_LENGTH(title)AS 'Character Count' FROM books;
+
+SELECT CONCAT(LEFT(title,10),'...' )AS 'short title',
+CONCAT(author_lname,',',author_fname) AS author,
+CONCAT(stock_quantity,' in stock') AS quantity
 FROM books;
 
---UPPER AND LOWER::
-SELECT UCASE('str');
-SELECT LCASE('STR');
-SELECT UPPER(title)FROM books;
-SELECT CONCAT(
-    'I Love This Book ',
-    UPPER(title)
-)AS 'Books' FROM books;
-
--- Other String Function:
-SELECT INSERT('Hello World',6,0,' There');
-SELECT INSERT(title,1,0,'HELLO ') FROM books;
-SELECT LEFT(title,5) FROM books;
-SELECT RIGHT(title,4) FROM books;
-SELECT REPEAT(title,2) FROM books;
-SELECT TRIM(LEADING '.' FROM '.......gsrgsrg...');
-SELECT TRIM(BOTH '.' FROM '.......gsrgsrg...');
-SELECT TRIM(TRAILING '.' FROM '.......gsrgsrg...');
+--Refining Seletions:
+INSERT INTO books
+    (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+           ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+           ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+SELECT * FROM books;
