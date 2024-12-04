@@ -146,8 +146,8 @@
 
 use book_shop;
 SELECT DATABASE();
-SELECT SUBSTR(title,1,15)FROM books;
-SELECT SUBSTR(title,1,9)AS 'Short Title' FROM books;
+-- SELECT SUBSTR(title,1,15)FROM books;
+-- SELECT SUBSTR(title,1,9)AS 'Short Title' FROM books;
 
 -- #Combining Concat and Substring
 -- SELECT CONCAT(SUBSTR(title,1,9),'...')AS 'Short Title' FROM books;
@@ -161,5 +161,7 @@ SELECT SUBSTR(title,1,9)AS 'Short Title' FROM books;
 -- FROM books;
 
 -- #REPLACE
+-- SELECT REPLACE('I am sahil','sahil','MR.Tapkir');
+-- SELECT REPLACE(title,' ','-')AS 'title with - ' FROM books;
 
-SELECT REPLACE(title,' ','-')AS 'title with - ' FROM books;
+--REVERSE
