@@ -143,3 +143,19 @@
 -- SELECT CONCAT_WS('-',author_fname,author_lname) AS "author full name" FROM books;
 
 -- #SUBSTRING
+
+use book_shop;
+SELECT DATABASE();
+SELECT SUBSTR(title,1,15)FROM books;
+SELECT SUBSTR(title,1,9)AS 'Short Title' FROM books;
+
+-- #Combining Concat and Substring
+SELECT CONCAT(SUBSTR(title,1,9),'...')AS 'Short Title' FROM books;
+SELECT CONCAT(
+    SUBSTR(author_fname,1,1),
+    '.',
+    SUBSTR(author_lname,1,1),
+    '.',
+    SUBSTR(title,1,9)
+)AS 'Author And Title'
+FROM books;
