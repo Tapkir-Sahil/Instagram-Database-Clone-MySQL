@@ -360,3 +360,32 @@ SELECT
     COUNT(*) AS 'count'
 FROM books 
 GROUP BY released_year;
+
+--EXCERCISE ON AGGREGATE FUNCTIONS:
+use book_shop;
+SELECT COUNT(*)FROM books;
+SELECT * FROM books;
+SELECT released_year,COUNT(*) FROM books GROUP BY released_year;
+SELECT SUM(stock_quantity) FROM books;
+SELECT 
+    CONCAT(author_fname,' ',author_lname) AS 'author',
+    AVG(released_year)
+FROM books
+GROUP BY author;
+
+SELECT
+    CONCAT(author_fname,' ',author_lname)AS 'name',
+    title,
+    pages
+FROM books 
+WHERE pages=(SELECT MAX(pages) FROM books);
+
+DELETE FROM books WHERE title='MY LIFE';
+
+SELECT 
+    released_year AS 'year',
+    COUNT(*) AS 'books',
+    AVG(pages) AS 'Average pages'
+FROM books 
+GROUP BY released_year
+ORDER BY released_year;
