@@ -282,7 +282,43 @@ ORDER BY released_year DESC LIMIT 0,3;
 SELECT title,author_lname FROM books WHERE author_lname LIKE '% %';
 SELECT title,released_year,stock_quantity FROM books ORDER BY stock_quantity,title LIMIT 0,3;
 SELECT title,author_lname FROM books ORDER BY author_lname,title;
-
 SELECT UPPER(CONCAT('MY FAVORITE AUTHOR IS ',author_fname,' ',author_lname,' !'))
 FROM books 
 ORDER BY author_lname;
+
+--AGGREGATE FUNCTION:-
+--COUNT:
+
+SELECT COUNT(*) FROM books;
+SELECT COUNT(DISTINCT author_fname) FROM books;
+SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
+SELECT * FROM books WHERE title LIKE'%the%'; 
+SELECT released_year,author_lname,count(*)AS 'cot'
+FROM books
+GROUP BY author_lname,released_year
+ORDER BY released_year DESC;
+
+SELECT author_fname,author_lname,count(*)AS 'cot'
+FROM books
+GROUP BY author_fname,author_lname;
+
+--MAX AND MIN 
+
+SELECT MAX(pages) FROM books;
+SELECT MIN(released_year) FROM books;
+
+--SUBQUERY
+
+INSERT INTO books(title,pages)
+VALUES
+('MY LIFE',634);
+
+SELECT title,pages FROM books 
+WHERE pages=(SELECT MAX(pages)FROM books);
+
+SELECT title,released_year,pages FROM books 
+WHERE pages=(SELECT MIN(pages)FROM books);
+
+SELECT pages FROM books ORDER BY pages;
+
+--GROUP BY MULTIPLE COLUMNS:
