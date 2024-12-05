@@ -322,3 +322,41 @@ WHERE pages=(SELECT MIN(pages)FROM books);
 SELECT pages FROM books ORDER BY pages;
 
 --GROUP BY MULTIPLE COLUMNS:
+SELECT DATABASE();
+use book_shop;
+
+SELECT DATABASE();
+
+SELECT CONCAT(author_fname,' ',author_lname) AS 'author',COUNT(*)
+FROM books
+GROUP BY author;
+
+-- MIN AND MAX WITH GROUP BY
+
+SELECT 
+    author_fname,
+    author_lname,
+    COUNT(*),
+    MAX(released_year)AS latest ,
+    MIN(released_year) earliest,
+    MAX(title)AS 'longest book',
+    MAX(pages) AS 'longest book'
+FROM books 
+GROUP BY author_lname,author_fname;
+
+--SUM:
+SELECT SUM(pages) from books;
+SELECT 
+    author_fname,
+    COUNT(*),
+    SUM(pages)
+FROM books
+GROUP BY author_fname;
+
+--AVERAGE:
+SELECT 
+    released_year,
+    AVG(stock_quantity) AS 'average',
+    COUNT(*) AS 'count'
+FROM books 
+GROUP BY released_year;
