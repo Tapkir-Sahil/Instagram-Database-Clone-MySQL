@@ -426,3 +426,46 @@ SELECT * FROM people;
 --DATE FUNCTIONS
 SELECT name,birthdate,birthtime,DAY(birthdt),DAYNAME(birthdt),DAYOFYEAR(birthdt),MONTHNAME(birthdt),YEAR(birthdt)
 FROM people;
+
+--TIME FUNTIONS:
+SELECT name,birthdate,birthtime,HOUR(birthdt),MINUTE(birthdt),SECOND(birthdt)
+FROM people;
+
+--DATE AND TIME FORMATING:
+
+SELECT birthdate,DATE_FORMAT(birthdate,'%a %b %e') FROM people;
+SELECT name,birthdate,DATE_FORMAT(birthdate,'%a %b %e'),birthtime,DATE_FORMAT(birthdt,'%h:%i:%s:%p') FROM people;
+
+
+--DATA TYPES EXCERCISE:
+
+SELECT CURTIME();
+SELECT CURDATE();
+
+SELECT DAY(CURDATE());
+SELECT DAYNAME(CURDATE());
+SELECT DATE_FORMAT(NOW(),'%c/%d/%Y');
+
+SELECT DATE_FORMAT(NOW(),'%M %D at %h:%i');
+
+CREATE TABLE tweets(
+    tweet VARCHAR(150),
+    username VARCHAR(150),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO tweets(tweet,username)
+VALUES
+('Hello world','xyz');
+
+SELECT * FROM tweets;
+INSERT INTO tweets(tweet,username)
+VALUES
+('HII HELLO WORLD','abc');
+
+SELECT * FROM tweets;
+
+UPDATE tweets SET tweet='hii world' WHERE username='abc';
+
+SELECT * FROM tweets;
