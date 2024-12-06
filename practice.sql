@@ -417,3 +417,12 @@ SELECT * FROM people;
 
 DELETE FROM people WHERE name='juan';
 SELECT * FROM people;
+
+INSERT INTO people(name,birthdate,birthtime,birthdt)
+VALUES
+('Hazel',CURDATE(),CURTIME(),NOW());
+SELECT * FROM people;
+
+--DATE FUNCTIONS
+SELECT name,birthdate,birthtime,DAY(birthdt),DAYNAME(birthdt),DAYOFYEAR(birthdt),MONTHNAME(birthdt),YEAR(birthdt)
+FROM people;
