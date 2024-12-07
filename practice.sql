@@ -228,244 +228,255 @@
 -- CONCAT(stock_quantity,' in stock') AS quantity
 -- FROM books;
 
---REFINING SELECTIONS:
-INSERT INTO books
-    (title, author_fname, author_lname, released_year, stock_quantity, pages)
-    VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
-           ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
-           ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
-SELECT * FROM books;
-USE book_shop;
-SELECT DATABASE();
-SELECT * FROM books;
+-- --REFINING SELECTIONS:
+-- INSERT INTO books
+--     (title, author_fname, author_lname, released_year, stock_quantity, pages)
+--     VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+--            ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+--            ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+-- SELECT * FROM books;
+-- USE book_shop;
+-- SELECT DATABASE();
+-- SELECT * FROM books;
 
---DISTINCT 
-SELECT DISTINCT author_lname FROM books;
-SELECT DISTINCT CONCAT(author_fname,' ',author_lname )AS 'author fullname' FROM books;
+-- --DISTINCT 
+-- SELECT DISTINCT author_lname FROM books;
+-- SELECT DISTINCT CONCAT(author_fname,' ',author_lname )AS 'author fullname' FROM books;
 
---ORDER BY:
-SELECT * FROM books ORDER BY author_lname;
-SELECT title,pages FROM books ORDER BY pages DESC;
-SELECT title , released_year FROM books ORDER BY released_year;
-SELECT author_fname,released_year,title
-FROM books 
-ORDER BY author_fname ,released_year DESC;
+-- --ORDER BY:
+-- SELECT * FROM books ORDER BY author_lname;
+-- SELECT title,pages FROM books ORDER BY pages DESC;
+-- SELECT title , released_year FROM books ORDER BY released_year;
+-- SELECT author_fname,released_year,title
+-- FROM books 
+-- ORDER BY author_fname ,released_year DESC;
 
---LIMIT:
+-- --LIMIT:
 
-SELECT title,released_year FROM books
-ORDER BY released_year
-LIMIT 5;
-SELECT title,released_year FROM books
-ORDER BY released_year DESC
-LIMIT 3,10;
-SELECT title,released_year FROM books ORDER BY released_year DESC;
+-- SELECT title,released_year FROM books
+-- ORDER BY released_year
+-- LIMIT 5;
+-- SELECT title,released_year FROM books
+-- ORDER BY released_year DESC
+-- LIMIT 3,10;
+-- SELECT title,released_year FROM books ORDER BY released_year DESC;
 
---LIKE :
+-- --LIKE :
 
-SELECT  author_fname,title FROM books WHERE author_fname LIKE '%da%';
-SELECT author_fname, title FROM books WHERE author_fname LIKE '___';
+-- SELECT  author_fname,title FROM books WHERE author_fname LIKE '%da%';
+-- SELECT author_fname, title FROM books WHERE author_fname LIKE '___';
 
--- ESCAPING WILDDCARDS:
-SELECT title FROM books WHERE title LIKE '%\%%';
-SELECT title FROM books WHERE title LIKE '%\_%';
+-- -- ESCAPING WILDDCARDS:
+-- SELECT title FROM books WHERE title LIKE '%\%%';
+-- SELECT title FROM books WHERE title LIKE '%\_%';
 
---REFINING SELECTIONS EXCERCISE:
+-- --REFINING SELECTIONS EXCERCISE:
 
-SELECT title FROM books WHERE title LIKE '%stories%';
-SELECT title,pages FROM books ORDER BY pages DESC LIMIT 0,1;
-SELECT CONCAT(
-    title,' - ',released_year
-    ) AS 'summary'
-FROM books
-ORDER BY released_year DESC LIMIT 0,3;
-SELECT title,author_lname FROM books WHERE author_lname LIKE '% %';
-SELECT title,released_year,stock_quantity FROM books ORDER BY stock_quantity,title LIMIT 0,3;
-SELECT title,author_lname FROM books ORDER BY author_lname,title;
-SELECT UPPER(CONCAT('MY FAVORITE AUTHOR IS ',author_fname,' ',author_lname,' !'))
-FROM books 
-ORDER BY author_lname;
+-- SELECT title FROM books WHERE title LIKE '%stories%';
+-- SELECT title,pages FROM books ORDER BY pages DESC LIMIT 0,1;
+-- SELECT CONCAT(
+--     title,' - ',released_year
+--     ) AS 'summary'
+-- FROM books
+-- ORDER BY released_year DESC LIMIT 0,3;
+-- SELECT title,author_lname FROM books WHERE author_lname LIKE '% %';
+-- SELECT title,released_year,stock_quantity FROM books ORDER BY stock_quantity,title LIMIT 0,3;
+-- SELECT title,author_lname FROM books ORDER BY author_lname,title;
+-- SELECT UPPER(CONCAT('MY FAVORITE AUTHOR IS ',author_fname,' ',author_lname,' !'))
+-- FROM books 
+-- ORDER BY author_lname;
 
---AGGREGATE FUNCTION:-
---COUNT:
+-- --AGGREGATE FUNCTION:-
+-- --COUNT:
 
-SELECT COUNT(*) FROM books;
-SELECT COUNT(DISTINCT author_fname) FROM books;
-SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
-SELECT * FROM books WHERE title LIKE'%the%'; 
-SELECT released_year,author_lname,count(*)AS 'cot'
-FROM books
-GROUP BY author_lname,released_year
-ORDER BY released_year DESC;
+-- SELECT COUNT(*) FROM books;
+-- SELECT COUNT(DISTINCT author_fname) FROM books;
+-- SELECT COUNT(*) FROM books WHERE title LIKE '%the%';
+-- SELECT * FROM books WHERE title LIKE'%the%'; 
+-- SELECT released_year,author_lname,count(*)AS 'cot'
+-- FROM books
+-- GROUP BY author_lname,released_year
+-- ORDER BY released_year DESC;
 
-SELECT author_fname,author_lname,count(*)AS 'cot'
-FROM books
-GROUP BY author_fname,author_lname;
+-- SELECT author_fname,author_lname,count(*)AS 'cot'
+-- FROM books
+-- GROUP BY author_fname,author_lname;
 
---MAX AND MIN 
+-- --MAX AND MIN 
 
-SELECT MAX(pages) FROM books;
-SELECT MIN(released_year) FROM books;
+-- SELECT MAX(pages) FROM books;
+-- SELECT MIN(released_year) FROM books;
 
---SUBQUERY
+-- --SUBQUERY
 
-INSERT INTO books(title,pages)
-VALUES
-('MY LIFE',634);
+-- INSERT INTO books(title,pages)
+-- VALUES
+-- ('MY LIFE',634);
 
-SELECT title,pages FROM books 
-WHERE pages=(SELECT MAX(pages)FROM books);
+-- SELECT title,pages FROM books 
+-- WHERE pages=(SELECT MAX(pages)FROM books);
 
-SELECT title,released_year,pages FROM books 
-WHERE pages=(SELECT MIN(pages)FROM books);
+-- SELECT title,released_year,pages FROM books 
+-- WHERE pages=(SELECT MIN(pages)FROM books);
 
-SELECT pages FROM books ORDER BY pages;
+-- SELECT pages FROM books ORDER BY pages;
 
---GROUP BY MULTIPLE COLUMNS:
-SELECT DATABASE();
-use book_shop;
+-- --GROUP BY MULTIPLE COLUMNS:
+-- SELECT DATABASE();
+-- use book_shop;
 
-SELECT DATABASE();
+-- SELECT DATABASE();
 
-SELECT CONCAT(author_fname,' ',author_lname) AS 'author',COUNT(*)
-FROM books
-GROUP BY author;
+-- SELECT CONCAT(author_fname,' ',author_lname) AS 'author',COUNT(*)
+-- FROM books
+-- GROUP BY author;
 
--- MIN AND MAX WITH GROUP BY
+-- -- MIN AND MAX WITH GROUP BY
 
-SELECT 
-    author_fname,
-    author_lname,
-    COUNT(*),
-    MAX(released_year)AS latest ,
-    MIN(released_year) earliest,
-    MAX(title)AS 'longest book',
-    MAX(pages) AS 'longest book'
-FROM books 
-GROUP BY author_lname,author_fname;
+-- SELECT 
+--     author_fname,
+--     author_lname,
+--     COUNT(*),
+--     MAX(released_year)AS latest ,
+--     MIN(released_year) earliest,
+--     MAX(title)AS 'longest book',
+--     MAX(pages) AS 'longest book'
+-- FROM books 
+-- GROUP BY author_lname,author_fname;
 
---SUM:
-SELECT SUM(pages) from books;
-SELECT 
-    author_fname,
-    COUNT(*),
-    SUM(pages)
-FROM books
-GROUP BY author_fname;
+-- --SUM:
+-- SELECT SUM(pages) from books;
+-- SELECT 
+--     author_fname,
+--     COUNT(*),
+--     SUM(pages)
+-- FROM books
+-- GROUP BY author_fname;
 
---AVERAGE:
-SELECT 
-    released_year,
-    AVG(stock_quantity) AS 'average',
-    COUNT(*) AS 'count'
-FROM books 
-GROUP BY released_year;
+-- --AVERAGE:
+-- SELECT 
+--     released_year,
+--     AVG(stock_quantity) AS 'average',
+--     COUNT(*) AS 'count'
+-- FROM books 
+-- GROUP BY released_year;
 
---EXCERCISE ON AGGREGATE FUNCTIONS:
-use book_shop;
-SELECT COUNT(*)FROM books;
-SELECT * FROM books;
-SELECT released_year,COUNT(*) FROM books GROUP BY released_year;
-SELECT SUM(stock_quantity) FROM books;
-SELECT 
-    CONCAT(author_fname,' ',author_lname) AS 'author',
-    AVG(released_year)
-FROM books
-GROUP BY author;
+-- --EXCERCISE ON AGGREGATE FUNCTIONS:
+-- use book_shop;
+-- SELECT COUNT(*)FROM books;
+-- SELECT * FROM books;
+-- SELECT released_year,COUNT(*) FROM books GROUP BY released_year;
+-- SELECT SUM(stock_quantity) FROM books;
+-- SELECT 
+--     CONCAT(author_fname,' ',author_lname) AS 'author',
+--     AVG(released_year)
+-- FROM books
+-- GROUP BY author;
 
-SELECT
-    CONCAT(author_fname,' ',author_lname)AS 'name',
-    title,
-    pages
-FROM books 
-WHERE pages=(SELECT MAX(pages) FROM books);
+-- SELECT
+--     CONCAT(author_fname,' ',author_lname)AS 'name',
+--     title,
+--     pages
+-- FROM books 
+-- WHERE pages=(SELECT MAX(pages) FROM books);
 
-DELETE FROM books WHERE title='MY LIFE';
+-- DELETE FROM books WHERE title='MY LIFE';
 
-SELECT 
-    released_year AS 'year',
-    COUNT(*) AS 'books',
-    AVG(pages) AS 'Average pages'
-FROM books 
-GROUP BY released_year
-ORDER BY released_year;
+-- SELECT 
+--     released_year AS 'year',
+--     COUNT(*) AS 'books',
+--     AVG(pages) AS 'Average pages'
+-- FROM books 
+-- GROUP BY released_year
+-- ORDER BY released_year;
 
---REVISTING DATATYPES:
---WORKING WITH DATA AND TIME
+-- --REVISTING DATATYPES:
+-- --WORKING WITH DATA AND TIME
 
-CREATE TABLE people(
-    name VARCHAR(50),
-    birthdate DATE,
-    birthtime TIME,
-    birthdt DATETIME
-);
+-- CREATE TABLE people(
+--     name VARCHAR(50),
+--     birthdate DATE,
+--     birthtime TIME,
+--     birthdt DATETIME
+-- );
 
-DESC people;
-INSERT INTO people(name,birthdate,birthtime,birthdt)
-VALUES
-('Elton','2000-12-25','11:00:00','2000-12-25 11:00:00');
+-- DESC people;
+-- INSERT INTO people(name,birthdate,birthtime,birthdt)
+-- VALUES
+-- ('Elton','2000-12-25','11:00:00','2000-12-25 11:00:00');
 
-SELECT * FROM people;
+-- SELECT * FROM people;
 
-INSERT INTO people (name, birthdate, birthtime, birthdt)
-VALUES ('Lulu', '1985-04-11', '9:45:10', '1985-04-11 9:45:10');
+-- INSERT INTO people (name, birthdate, birthtime, birthdt)
+-- VALUES ('Lulu', '1985-04-11', '9:45:10', '1985-04-11 9:45:10');
  
-INSERT INTO people (name, birthdate, birthtime, birthdt)
-VALUES ('Juan', '2020-08-15', '23:59:00', '2020-08-15 23:59:00');
+-- INSERT INTO people (name, birthdate, birthtime, birthdt)
+-- VALUES ('Juan', '2020-08-15', '23:59:00', '2020-08-15 23:59:00');
 
-SELECT * FROM people;
+-- SELECT * FROM people;
 
-DELETE FROM people WHERE name='juan';
-SELECT * FROM people;
+-- DELETE FROM people WHERE name='juan';
+-- SELECT * FROM people;
 
-INSERT INTO people(name,birthdate,birthtime,birthdt)
-VALUES
-('Hazel',CURDATE(),CURTIME(),NOW());
-SELECT * FROM people;
+-- INSERT INTO people(name,birthdate,birthtime,birthdt)
+-- VALUES
+-- ('Hazel',CURDATE(),CURTIME(),NOW());
+-- SELECT * FROM people;
 
---DATE FUNCTIONS
-SELECT name,birthdate,birthtime,DAY(birthdt),DAYNAME(birthdt),DAYOFYEAR(birthdt),MONTHNAME(birthdt),YEAR(birthdt)
-FROM people;
+-- --DATE FUNCTIONS
+-- SELECT name,birthdate,birthtime,DAY(birthdt),DAYNAME(birthdt),DAYOFYEAR(birthdt),MONTHNAME(birthdt),YEAR(birthdt)
+-- FROM people;
 
---TIME FUNTIONS:
-SELECT name,birthdate,birthtime,HOUR(birthdt),MINUTE(birthdt),SECOND(birthdt)
-FROM people;
+-- --TIME FUNTIONS:
+-- SELECT name,birthdate,birthtime,HOUR(birthdt),MINUTE(birthdt),SECOND(birthdt)
+-- FROM people;
 
---DATE AND TIME FORMATING:
+-- --DATE AND TIME FORMATING:
 
-SELECT birthdate,DATE_FORMAT(birthdate,'%a %b %e') FROM people;
-SELECT name,birthdate,DATE_FORMAT(birthdate,'%a %b %e'),birthtime,DATE_FORMAT(birthdt,'%h:%i:%s:%p') FROM people;
+-- SELECT birthdate,DATE_FORMAT(birthdate,'%a %b %e') FROM people;
+-- SELECT name,birthdate,DATE_FORMAT(birthdate,'%a %b %e'),birthtime,DATE_FORMAT(birthdt,'%h:%i:%s:%p') FROM people;
 
 
---DATA TYPES EXCERCISE:
+-- --DATA TYPES EXCERCISE:
 
-SELECT CURTIME();
-SELECT CURDATE();
+-- SELECT CURTIME();
+-- SELECT CURDATE();
 
-SELECT DAY(CURDATE());
-SELECT DAYNAME(CURDATE());
-SELECT DATE_FORMAT(NOW(),'%c/%d/%Y');
+-- SELECT DAY(CURDATE());
+-- SELECT DAYNAME(CURDATE());
+-- SELECT DATE_FORMAT(NOW(),'%c/%d/%Y');
 
-SELECT DATE_FORMAT(NOW(),'%M %D at %h:%i');
+-- SELECT DATE_FORMAT(NOW(),'%M %D at %h:%i');
 
-CREATE TABLE tweets(
-    tweet VARCHAR(150),
-    username VARCHAR(150),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE tweets(
+--     tweet VARCHAR(150),
+--     username VARCHAR(150),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
-INSERT INTO tweets(tweet,username)
-VALUES
-('Hello world','xyz');
+-- INSERT INTO tweets(tweet,username)
+-- VALUES
+-- ('Hello world','xyz');
 
-SELECT * FROM tweets;
-INSERT INTO tweets(tweet,username)
-VALUES
-('HII HELLO WORLD','abc');
+-- SELECT * FROM tweets;
+-- INSERT INTO tweets(tweet,username)
+-- VALUES
+-- ('HII HELLO WORLD','abc');
 
-SELECT * FROM tweets;
+-- SELECT * FROM tweets;
 
-UPDATE tweets SET tweet='hii world' WHERE username='abc';
+-- UPDATE tweets SET tweet='hii world' WHERE username='abc';
 
-SELECT * FROM tweets;
+-- SELECT * FROM tweets;
+
+-- LOGICAL OPERATOR:
+
+SELECT DATABASE();
+
+use book_shop;
+SELECT DATABASE();
+
+SELECT author_fname,author_lname,title,pages,released_year
+FROM books
+WHERE pages>300 AND released_year>=2001;
