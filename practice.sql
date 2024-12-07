@@ -477,6 +477,10 @@ SELECT DATABASE();
 use book_shop;
 SELECT DATABASE();
 
+-- Logical AND:
 SELECT author_fname,author_lname,title,pages,released_year
 FROM books
 WHERE pages>300 AND released_year>=2001;
+
+--LOGICAL OR:
+SELECT * FROM books WHERE pages>=500 OR title NOT LIKE '% %';
