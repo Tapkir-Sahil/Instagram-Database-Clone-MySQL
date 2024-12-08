@@ -484,3 +484,15 @@ WHERE pages>300 AND released_year>=2001;
 
 --LOGICAL OR:
 SELECT * FROM books WHERE pages>=500 OR title NOT LIKE '% %';
+
+-- BETTWEEN OPERATOR:-
+use book_shop;
+SELECT title,released_year FROM books
+WHERE released_year BETWEEN 2001 AND 2022;
+
+--COMPARING DATES:
+-- REFER AN DOCUMENTAION OF MYSQL
+
+--IN AND NOT IN OPERATOR:
+SELECT title,released_year,pages FROM books WHERE released_year IN (2001,2003,2005) ORDER BY released_year;
+SELECT title,released_year,pages FROM books WHERE released_year NOT IN (2001,2003,2005) ORDER BY released_year;
