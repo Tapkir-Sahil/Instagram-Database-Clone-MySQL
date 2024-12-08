@@ -557,3 +557,12 @@ FROM books
 
 SELECT CONCAT(author_fname,' ',author_lname)AS 'author',CONCAT(COUNT(*),' books') AS 'books'
 FROM books GROUP BY author;
+-- ANOTHER WAY TO EXECUTE THE ABOVE QUERY
+SELECT author_fname, author_lname,
+	CASE
+        WHEN COUNT(*) = 1 THEN '1 book'
+        ELSE CONCAT(COUNT(*), ' books')
+	END AS count
+FROM books
+WHERE author_lname IS NOT NULL
+GROUP BY author_fname, author_lname;
