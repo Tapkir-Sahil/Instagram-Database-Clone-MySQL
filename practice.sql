@@ -496,3 +496,64 @@ WHERE released_year BETWEEN 2001 AND 2022;
 --IN AND NOT IN OPERATOR:
 SELECT title,released_year,pages FROM books WHERE released_year IN (2001,2003,2005) ORDER BY released_year;
 SELECT title,released_year,pages FROM books WHERE released_year NOT IN (2001,2003,2005) ORDER BY released_year;
+
+--CASE OPERATOR:
+
+SELECT title, released_year,
+CASE
+	WHEN released_year >= 2000 THEN 'modern lit'
+    ELSE '20th century lit' 
+END AS genre
+FROM books;
+ 
+ 
+SELECT 
+    title,
+    stock_quantity,
+    CASE
+        WHEN stock_quantity BETWEEN 0 AND 40 THEN '*'
+        WHEN stock_quantity BETWEEN 41 AND 70 THEN '**'
+        WHEN stock_quantity BETWEEN 71 AND 100 THEN '***'
+        WHEN stock_quantity BETWEEN 101 AND 140 THEN '****'
+        ELSE '*****'
+    END AS stock
+FROM
+    books;
+ 
+ 
+SELECT 
+    title,
+    stock_quantity,
+    CASE
+        WHEN stock_quantity <= 40 THEN '*'
+        WHEN stock_quantity <= 70 THEN '**'
+        WHEN stock_quantity <= 100 THEN '***'
+        WHEN stock_quantity <= 140 THEN '****'
+        ELSE '*****'
+    END AS stock
+FROM
+    books;
+
+--OPERATORS EXCERCISE:-
+
+SELECT 10 != 10;
+SELECT 15 > 14 AND 99 - 5 <= 94;
+SELECT 1 IN (5,3) OR 9 BETWEEN 8 AND 10;
+USE book_shop;
+SELECT DATABASE();
+SELECT * FROM books WHERE released_year < 1980;
+SELECT * FROM books WHERE author_lname IN ('Eggers','Chabon');
+SELECT * FROM books WHERE author_lname='Lahiri' AND released_year > 2000;
+SELECT * FROM books WHERE pages BETWEEN 100 AND 200;
+SELECT * FROM books WHERE author_lname LIKE 'S%' OR author_lname LIKE 'C%';
+
+SELECT title,author_lname,
+CASE 
+    WHEN title LIKE '%stories%' THEN 'Short stories'
+    WHEN title LIKE 'just kids' OR title LIKE '%a heartbreaking work%' THEN 'Memoir'
+    ELSE  'Novel'
+END AS 'Type'
+FROM books
+
+SELECT CONCAT(author_fname,' ',author_lname)AS 'author',CONCAT(COUNT(*),' books') AS 'books'
+FROM books GROUP BY author;
