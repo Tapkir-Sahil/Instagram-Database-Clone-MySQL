@@ -566,3 +566,81 @@ SELECT author_fname, author_lname,
 FROM books
 WHERE author_lname IS NOT NULL
 GROUP BY author_fname, author_lname;
+
+--CONSTRAINTS AND ALTER TABLE:
+--UNIQUE CONSTRAINT:
+DROP TABLE contacts;
+CREATE Table contacts(
+    name VARCHAR(20),
+    phone VARCHAR(20) NOT NULL UNIQUE
+);
+DESC contacts;
+INSERT INTO contacts(name,phone)
+VALUES
+('cavdvz','23456789');
+SELECT * FROM contacts;
+--CHECK CONSTRAINT:
+CREATE TABLE users(
+    username VARCHAR(20),
+    age INT CHECK(age>18)
+);
+
+INSERT INTO users(username,age)
+VALUES
+('Siddya',22),
+('Sanjay',23);
+SELECT * FROM users;
+INSERT INTO users(username,age)
+VALUES
+('atharva',19);
+DELETE FROM users WHERE age=19;
+SELECT * FROM users;
+
+--NAMED CONSTRAINT:
+
+CREATE TABLE palindrom(
+    words VARCHAR(100),
+    CONSTRAINT word_is_not_palindrom CHECK(REVERSE(words)=words)
+);
+
+INSERT INTO palindrom(words)
+VALUES
+('racecar');
+SELECT * FROM palindrom;
+DROP TABLE com;
+CREATE TABLE com(
+    comname VARCHAR(20) NOT NULL,
+    address VARCHAR(49) NOT NULL,
+    CONSTRAINT already_exsist UNIQUE(comname,address)
+);
+
+INSERT INTO com(comname,address)
+VALUES
+('abc','xyz'),
+('xyz','abc');
+
+INSERT INTO com(comname,address)
+VALUES
+('abc','xyz');
+
+-- ALTER TABLE: ADDING-COLUMNS
+ALTER TABLE com
+ADD COLUMN phone INT NOT NULL DEFAULT 1;
+SELECT * FROM com;
+
+--ALTER TABLE: DROPING-COLUMNS
+ALTER TABLE com DROP COLUMN phone;
+SELECT * FROM com;
+ALTER TABLE com RENAME TO companies;
+SELECT * FROM companies;
+ALTER TABLE companies
+RENAME COLUMN comname TO company_name;
+
+--ALTER TABLE : MODIFY COLUMNS
+ALTER TABLE companies
+MODIFY company_name VARCHAR(5);
+
+ALTER TABLE companies
+CHANGE company_name company_UN VARCHAR(25);
+
+DESC companies;
