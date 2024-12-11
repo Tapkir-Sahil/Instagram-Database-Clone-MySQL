@@ -639,8 +639,7 @@ RENAME COLUMN comname TO company_name;
 --ALTER TABLE : MODIFY COLUMNS
 ALTER TABLE companies
 MODIFY company_name VARCHAR(5);
-
 ALTER TABLE companies
 CHANGE company_name company_UN VARCHAR(25);
-
 DESC companies;
+    
