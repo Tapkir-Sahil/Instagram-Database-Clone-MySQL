@@ -679,3 +679,147 @@ VALUES ('2016-02-10', 99.99, 1),
        ('1999-04-11', 450.25, 5);
 
 SELECT * FROM orders;
+INSERT INTO orders(order_date,amount,customer_id)
+VALUES
+('2022-11-11',78.99,3);
+--Cross Joins:
+SELECT * FROM customers,orders;
+
+--INNER JOIN
+
+SELECT first_name,last_name,order_date,amount FROM customers
+INNER JOIN orders ON orders.customer_id=customers.id;
+
+SELECT * FROM orders
+INNER JOIN customers ON customers.id=orders.customer_id;
+
+-- INNER JOIN WITH GROUPS:
+
+SELECT first_name,last_name,SUM(amount) AS 'total' 
+FROM customers
+INNER JOIN orders ON orders.customer_id=customers.id
+GROUP BY first_name,last_name
+ORDER BY total DESC;
+
+--LEFT JOIN:
+ SELECT first_name,last_name,amount
+ FROM customers
+LEFT JOIN orders ON orders.customer_id=customers.id;
+
+--LEFT JOIN WITH GROUP BY AND IFNULL:
+
+SELECT first_name,last_name,IFNULL(sum(amount),0) AS'total'
+FROM customers
+LEFT JOIN orders ON customers.id=orders.customer_id
+GROUP BY first_name,last_name ORDER BY total;
+
+--RIGHT JOIN:
+SELECT first_name,last_name,amount FROM customers
+INNER JOIN orders ON orders.customer_id=customers.id;
+
+SELECT first_name,last_name,amount FROM orders
+RIGHT JOIN customers ON orders.customer_id=customers.id;
+
+--ON DELETE CASCADE
+DELETE FROM customers WHERE first_name='Boy';
+DROP TABLE customers;
+DROP TABLE orders;
+DROP TABLE customers;
+
+CREATE TABLE customers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(50)
+);
+
+ 
+INSERT INTO customers (first_name, last_name, email) 
+VALUES ('Boy', 'George', 'george@gmail.com'),
+       ('George', 'Michael', 'gm@gmail.com'),
+       ('David', 'Bowie', 'david@gmail.com'),
+       ('Blue', 'Steele', 'blue@gmail.com'),
+       ('Bette', 'Davis', 'bette@aol.com');
+
+SELECT * FROM customers;
+
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_date DATE,
+    amount DECIMAL(8,2),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+);
+
+INSERT INTO orders (order_date, amount, customer_id)
+VALUES ('2016-02-10', 99.99, 1),
+       ('2017-11-11', 35.50, 1),
+       ('2014-12-12', 800.67, 2),
+       ('2015-01-03', 12.50, 2),
+       ('1999-04-11', 450.25, 5);
+
+SELECT * FROM orders;
+
+DELETE FROM customers WHERE first_name='boy';
+SELECT * FROM orders;
+
+
+
+-- JOINS EXCERCISE:
+CREATE TABLE students(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25)
+);
+
+INSERT INTO students (first_name) 
+VALUES 
+('Caleb'),
+('Samantha'), 
+('Raj'), 
+('Carlos'), 
+('Lisa');
+
+SELECT * FROM students;
+
+CREATE TABLE papers(
+    title VARCHAR(100),
+    grade INT,
+    student_id INT,
+    Foreign Key (student_id) REFERENCES students(id) ON DELETE CASCADE
+);
+INSERT INTO papers (student_id, title, grade ) 
+VALUES
+(1, 'My First Book Report', 60),
+(1, 'My Second Book Report', 75),
+(2, 'Russian Lit Through The Ages', 94),
+(2, 'De Montaigne and The Art of The Essay', 98),
+(4, 'Borges and Magical Realism', 89);
+SELECT * FROM papers;
+
+SELECT first_name,title,grade
+FROM students
+INNER JOIN papers ON papers.student_id=students.id;
+
+SELECT first_name,title,grade 
+FROM students
+LEFT JOIN papers ON papers.student_id=students.id;
+
+SELECT first_name,IFNULL(title,'MISSING') AS title,IFNULL(grade,0) AS grade
+FROM students
+LEFT JOIN papers ON papers.student_id=students.id;
+
+SELECT first_name,IFNULL(AVG(grade),'0') AS 'grade'
+FROM students
+LEFT JOIN papers ON papers.student_id=students.id
+GROUP BY first_name ORDER BY grade DESC;
+
+SELECT 
+    first_name,
+    IFNULL(AVG(grade),'0') AS 'Grade',
+    CASE 
+        WHEN IFNULL(AVG(grade),'0') >= 75 THEN  'Passing'
+        ELSE  'Failing'
+    END AS 'Passing_Status'
+FROM students
+LEFT JOIN papers ON papers.student_id=students.id
+GROUP BY first_name ORDER BY Grade DESC;
