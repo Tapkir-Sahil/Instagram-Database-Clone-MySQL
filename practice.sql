@@ -902,3 +902,10 @@ SELECT * FROM series;
 SELECT * FROM reviewers;
 SELECT * FROM reviews;
 
+--CHALLENGE 1:
+SELECT title,rating FROM series
+INNER JOIN reviews ON reviews.series_id=series.id;
+
+SELECT title,AVG(rating) AS 'average_rating' FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+GROUP BY title ORDER BY average_rating DESC;
