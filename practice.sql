@@ -1,3 +1,4 @@
+-- Active: 1734266130866@@127.0.0.1@3306@practice1
 Active: 1732949880220@@127.0.0.1@3306@practice1
 use practice1; 
  SELECT DATABASE();
@@ -906,6 +907,21 @@ SELECT * FROM reviews;
 SELECT title,rating FROM series
 INNER JOIN reviews ON reviews.series_id=series.id;
 
-SELECT title,AVG(rating) AS 'average_rating' FROM series
+--CHALLENGE 2:
+SELECT title,ROUND(AVG(rating),2) AS 'average_rating' FROM series
 INNER JOIN reviews ON reviews.series_id=series.id
-GROUP BY title ORDER BY average_rating DESC;
+GROUP BY title ORDER BY average_rating;
+
+--CHALLENGE 3:
+SELECT fname,lname,rating FROM reviewers
+INNER JOIN reviews ON reviews.reviewers_id=reviewers.id;
+
+--CHALLENGE 4:
+SELECT title AS 'Unreviewed Title' FROM series
+LEFT JOIN reviews ON reviews.series_id=series.id
+WHERE rating IS NULL;
+
+--CHALLENGE 5:
+SELECT genre,ROUND(AVG(rating),2) FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+GROUP BY genre;
