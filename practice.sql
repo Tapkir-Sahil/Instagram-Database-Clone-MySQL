@@ -925,3 +925,26 @@ WHERE rating IS NULL;
 SELECT genre,ROUND(AVG(rating),2) FROM series
 INNER JOIN reviews ON reviews.series_id=series.id
 GROUP BY genre;
+
+--CHALLENGE 6:
+SELECT 
+fname,
+lname,
+IFNULL(COUNT(rating),0) AS 'Reviews Count',
+IFNULL(MIN(rating),0) AS 'Min Of Reviews',
+IFNULL(MAX(rating),0) AS 'Max Of Reviews',
+IFNULL(ROUND(AVG(rating),2),0) AS 'Average Of Reviews',
+CASE 
+    WHEN rating IS NOT NULL THEN 'ACTIVE'
+    ELSE  'INACTIVE'
+END AS 'Status'
+FROM reviewers
+LEFT JOIN reviews ON reviews.reviewers_id=reviewers.id
+GROUP BY fname,lname,Status;
+
+--CHALLENGE 7:
+SELECT title,rating,CONCAT(fname,' ',lname) AS 'Reviewer Name'
+FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+INNER JOIN reviewers ON reviewers.id=reviews.reviewers_id
+ORDER BY title;
