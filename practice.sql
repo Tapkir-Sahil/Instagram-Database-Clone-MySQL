@@ -1007,3 +1007,106 @@ GROUP BY title WITH ROLLUP;
 --BELOW ARE THE QUERYS--
 --SET GLOBAL sql_mode = 'modes';
 --SET SESSION sql_mode = 'modes';
+
+
+--WINDOWS FUNCTION:
+--Creating tables for windows function:
+CREATE TABLE emp(
+    emp_no INT PRIMARY KEY AUTO_INCREMENT,
+    department VARCHAR(20),
+    salary INT
+);
+
+INSERT INTO emp(department,salary)
+VALUES
+('engineering', 80000),
+('engineering', 69000),
+('engineering', 70000),
+('engineering', 103000),
+('engineering', 67000),
+('engineering', 89000),
+('engineering', 91000),
+('sales', 59000),
+('sales', 70000),
+('sales', 159000),
+('sales', 72000),
+('sales', 60000),
+('sales', 61000),
+('sales', 61000),
+('customer service', 38000),
+('customer service', 45000),
+('customer service', 61000),
+('customer service', 40000),
+('customer service', 31000),
+('customer service', 56000),
+('customer service', 55000);
+
+SELECT * FROM emp;
+--OVER FUNCTION IN WINDOWS FUNCTION:
+   SELECT 
+    department,
+    salary,
+    AVG(salary) OVER(),
+    MIN(salary) OVER(),
+    MAX(salary) OVER()
+FROM emp;
+
+--PARTITION BY IN WINDOWS FUNCTION:
+SELECT 
+    emp_no,
+    department,
+    salary,
+    AVG(salary) OVER(PARTITION BY department),
+    AVG(salary) OVER() 
+FROM emp;
+
+SELECT
+    department,
+    salary,
+    SUM(salary) OVER(PARTITION BY department),
+    SUM(salary) OVER()
+FROM emp;
+
+SELECT
+    salary,
+    department,
+    COUNT(department) OVER(PARTITION BY department)
+FROM emp;
+
+--ORDER BY :
+
+SELECT 
+    department,
+    salary,
+    SUM(salary) OVER(PARTITION BY department) AS 'sum of salary for each department'
+FROM emp;
+
+SELECT
+    department,
+    salary,
+    SUM(salary) OVER(PARTITION BY department ORDER BY salary) AS 'Roll Up',
+    SUM(salary) OVER(PARTITION BY department) AS 'Total Salary'
+FROM emp;
+
+--RANKING IN WINDOWS FUNTION:
+SELECT 
+    department,
+    salary,
+    RANK() OVER(PARTITION BY department ORDER BY salary)
+FROM emp;
+
+--ROW_NUMBER IN WINDOWS FUNCTION:
+SELECT
+    department,
+    salary,
+    ROW_NUMBER() OVER(ORDER BY salary)
+FROM emp;
+
+--DENSE_RANK IN WINDOWS FUNCTION:
+SELECT
+    department,
+    salary,
+    DENSE_RANK() OVER(ORDER BY salary)
+FROM emp;
+
+--NTILE() IN WINDOWS FUNCTION
