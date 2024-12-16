@@ -948,3 +948,62 @@ FROM series
 INNER JOIN reviews ON reviews.series_id=series.id
 INNER JOIN reviewers ON reviewers.id=reviews.reviewers_id
 ORDER BY title;
+
+--VIEWS,MODES AND MORE:
+--Creating Views:
+CREATE VIEW full_reviews AS
+SELECT CONCAT(fname,' ',lname)AS 'fullname',title,released_year,rating FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+INNER JOIN reviewers ON reviews.reviewers_id=reviewers.id;
+
+SELECT title,ROUND(AVG(rating),2) FROM full_reviews GROUP BY title;
+
+--Updating Or Replacing Or Altering Views:
+CREATE OR REPLACE VIEW full_reviews AS
+SELECT CONCAT(fname,' ',lname)AS 'fullname',title,released_year,rating FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+INNER JOIN reviewers ON reviews.reviewers_id=reviewers.id;
+
+SELECT title,ROUND(AVG(rating),2) FROM full_reviews GROUP BY title,fullname,rating;
+
+ALTER VIEW full_reviews AS
+SELECT CONCAT(fname,' ',lname)AS 'fullname',title,released_year,rating FROM series
+INNER JOIN reviews ON reviews.series_id=series.id
+INNER JOIN reviewers ON reviews.reviewers_id=reviewers.id
+ORDER BY released_year;
+
+SELECT * FROM full_reviews;
+
+--HAVING CLAUSE:
+
+SELECT 
+    title,
+    ROUND(AVG(rating),2) AS 'reviews_count',
+    COUNT(rating) AS 'total_rating'
+FROM full_reviews
+GROUP BY title HAVING COUNT(rating) > 1;
+
+--WITH ROLLUP:
+SELECT 
+    title,
+    AVG(rating) 
+FROM full_reviews
+GROUP BY title WITH ROLLUP;
+
+SELECT
+    title,
+    COUNT(rating)
+FROM full_reviews
+GROUP BY title WITH ROLLUP;
+
+--SQL MODES BASICS:-
+
+-- To View Modes:-
+--BELOW ARE THE QUERYS--
+--SELECT @@GLOBAL.sql_mode;
+-- SELECT @@SESSION.sql_mode;
+
+-- To Set Them:-
+--BELOW ARE THE QUERYS--
+--SET GLOBAL sql_mode = 'modes';
+--SET SESSION sql_mode = 'modes';
