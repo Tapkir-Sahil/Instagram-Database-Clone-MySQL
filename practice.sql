@@ -1110,3 +1110,36 @@ SELECT
 FROM emp;
 
 --NTILE() IN WINDOWS FUNCTION
+
+SELECT
+    department,
+    salary,
+    NTILE(3) OVER(ORDER BY salary DESC) AS 'ntile salary',
+    NTILE(3) OVER(PARTITION BY department ORDER BY salary DESC)AS 'dept ntile salary'     
+FROM emp;
+
+--FIRST_VALUE() FUNCTION:
+
+SELECT 
+    emp_no,
+    department,
+    salary,
+    FIRST_VALUE(emp_no) OVER(ORDER BY salary DESC)AS 'Highest salary in com',
+    FIRST_VALUE(emp_no) OVER(PARTITION BY department ORDER BY salary DESC)AS 'Highest salary in dept'
+FROM emp;
+
+--LEAD AND LAG FUNCTION():
+--LAG()
+SELECT 
+    department,
+    salary,
+    LAG(salary) OVER(ORDER BY salary DESC) - salary AS 'lag_sal',
+    LAG(salary) OVER(PARTITION BY department ORDER BY salary DESC) - salary AS 'dep_lag_sal'
+FROM emp;
+
+--LEAD()
+SELECT 
+    department,
+    salary,
+    LEAD(salary) OVER(PARTITION BY department ORDER BY salary DESC)
+FROM emp;
