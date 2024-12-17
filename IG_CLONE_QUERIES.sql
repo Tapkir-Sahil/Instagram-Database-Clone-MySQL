@@ -1,0 +1,4 @@
+-- Active: 1734413285936@@127.0.0.1@3306@ig_clone
+
+SHOW TABLES;
+SELECT * FROM comments;
